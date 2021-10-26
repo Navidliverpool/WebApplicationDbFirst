@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplicationDbFirst;
+using WebApplicationDbFirst.ViewModels;
 
 namespace WebApplicationDbFirst.Controllers
 {
@@ -19,6 +20,7 @@ namespace WebApplicationDbFirst.Controllers
         public async Task<ActionResult> Index()
         {
             var motorcycles = db.Motorcycles.Include(m => m.Brand);
+
             return View(await motorcycles.ToListAsync());
         }
 
@@ -75,6 +77,9 @@ namespace WebApplicationDbFirst.Controllers
                 return HttpNotFound();
             }
             ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name", motorcycle.BrandId);
+
+            
+            ViewBag.DealerId = new SelectList(db.Dealers, "DealerId", "Name", motorcycle.Dealers);
             return View(motorcycle);
         }
 
@@ -83,7 +88,7 @@ namespace WebApplicationDbFirst.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "MotorcycleId,Model,Price,BrandId")] Motorcycle motorcycle)
+        public async Task<ActionResult> Edit([Bind(Include = "MotorcycleId,Model,Price,BrandId")] MotorcycleDealerViewModel motorcycle)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +96,8 @@ namespace WebApplicationDbFirst.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name", motorcycle.BrandId);
+            ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name", motorcycle.Motorcycle.BrandId);
+            ViewBag.BrandId = new SelectList(db.Dealers, "DealerId", "Name", motorcycle.Dealer.DealerId);
             return View(motorcycle);
         }
 
