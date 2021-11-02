@@ -8,6 +8,6 @@ namespace WebApplicationDbFirst.ViewModels
     public class MotorcycleDealerViewModel
     {
         public Motorcycle Motorcycle { get; set; }
-        public Dealer Dealer { get; set; }
+        public Dealer Dealers { get; set; }
     }
 }

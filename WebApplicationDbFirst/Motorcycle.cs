@@ -11,7 +11,8 @@ namespace WebApplicationDbFirst
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Motorcycle
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +22,9 @@ namespace WebApplicationDbFirst
         }
     
         public int MotorcycleId { get; set; }
+        [DisplayName("Insert the Model")]
         public string Model { get; set; }
+        [DisplayName("Insert the Price")]
         public double Price { get; set; }
         public Nullable<int> BrandId { get; set; }
     
