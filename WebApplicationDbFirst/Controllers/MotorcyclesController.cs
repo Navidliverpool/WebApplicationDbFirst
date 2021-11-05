@@ -72,24 +72,27 @@ namespace WebApplicationDbFirst.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Motorcycle motorcycle = await db.Motorcycles.FindAsync(id);
 
-            var dealers = await db.Dealers.ToListAsync();
-
-            MotorcycleVM motorcycleVM = new MotorcycleVM
+            var motorcycleViewModel = new MotorcycleVM
             {
-                Motorcycle = motorcycle,
-                Dealers = new List<Dealer>(),
-                AllDealers = dealers
+                Motorcycle = db.Motorcycles.Include(i => i.Dealers).First(i => i.MotorcycleId == id),
             };
 
-            if (motorcycle == null)
-            {
+            if (motorcycleViewModel.Motorcycle == null)
                 return HttpNotFound();
-            }
-            ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name", motorcycle.BrandId);
 
-            return View(motorcycleVM);
+            var allDealersList = db.Dealers.ToList();
+
+            motorcycleViewModel.AllDealers = allDealersList.Select(o => new SelectListItem
+            {
+                Text = o.Name,
+                Value = o.DealerId.ToString()
+            });
+
+            ViewBag.BrandId =
+                    new SelectList(db.Brands, "BrandId", "Name", motorcycleViewModel.Motorcycle.BrandId);
+
+            return View(motorcycleViewModel);
         }
 
         [HttpPost]
