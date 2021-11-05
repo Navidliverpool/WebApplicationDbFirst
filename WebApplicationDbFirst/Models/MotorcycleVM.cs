@@ -8,6 +8,7 @@ namespace WebApplicationDbFirst.Models
     public class MotorcycleVM
     {
         public Motorcycle Motorcycle { get; set; }
+        //public Brand BrandVM { get; set; }
         public ICollection<Dealer> Dealers { get; set; }
         public IEnumerable<Dealer> AllDealers { get; set; }
         public Dealer Dealer { get; set; }
