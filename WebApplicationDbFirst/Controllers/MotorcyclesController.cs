@@ -97,172 +97,48 @@ namespace WebApplicationDbFirst.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(MotorcycleVM model, FormCollection formCollection)
-        {
+        public ActionResult Edit(MotorcycleVM motorcycleViewModel)
+           {
+   	    
+  			if (motorcycleViewModel == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+  
+  			
+  
+              if (ModelState.IsValid)
+              {
+  				var jobToUpdate = db.Motorcycles
+  					.Include(i => i.Dealers).First(i => i.MotorcycleId == motorcycleViewModel.Motorcycle.MotorcycleId);
+  
+  	            if (TryUpdateModel(jobToUpdate,"Motorcycle",new string[]{"Title","EmployerID"} ))
+  	            {
+  		            var newDealers = db.Dealers.Where(
+                         m => motorcycleViewModel.SelectedDealers.Contains(m.DealerId)).ToList();
+  					var updatedDealers = new HashSet<int>(motorcycleViewModel.SelectedDealers);
+  					foreach (Dealer dealer in db.Dealers)
+  					{
+  						if (!updatedDealers.Contains(dealer.DealerId))
+  						{
+  							jobToUpdate.Dealers.Remove(dealer);
+  						}
+                         else
+                             {
+                                 jobToUpdate.Dealers.Add((dealer));
+                             }
+                     }
 
-            var moto = db.Motorcycles
-                    .Where(m => m.MotorcycleId == model.Motorcycle.MotorcycleId).FirstOrDefault();
-            moto.Model = formCollection[model.Motorcycle.Model];
-            var motoPriceToString = moto.Price.ToString();
-            motoPriceToString = formCollection[model.Motorcycle.Price.ToString()];
-            //var motoBrandToString = moto.Brand.BrandId.ToString();
-            //motoBrandToString = formCollection[model.Motorcycle.Brand.BrandId];
-            moto.Brand.Name = formCollection[model.Motorcycle.Brand.Name];
+                    db.Entry(jobToUpdate).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                 }
 
-
-            //var brd2 = db.Motorcycles.Where(m => m.Brand.Name == model.Motorcycle.Brand.Name).FirstOrDefault();
-
-            //var brd3 = new Brand();
-
-            //brd3.Name = formCollection[model.BrandVM.Name];
-
-            //var dlr1 = db.Dealers
-            //    .Where(d => d.DealerId == model.Dealer.DealerId).FirstOrDefault();
-            //var dlr2 = new Dealer();
-            //dlr2.Name = formCollection[model.Dealer.Name];
-
-            if (ModelState.IsValid)
-            {
-                db.Entry(model).State = EntityState.Modified;
-                //db.Entry(brd3).State = EntityState.Modified;
-                //db.Entry(dlr2).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-            }
-
-            var dlrForSpecificMoto = db.Motorcycles.Select(m => m.Dealers).ToList();
-            var motoVM = new MotorcycleVM()
-            {
-                Motorcycle = moto,
-                //Dealer = dlr2,
-                //BrandVM = brd3
-            };
-            ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name", model.Motorcycle.BrandId);
-            return View(moto);
-        }
+                  return RedirectToAction("Index");
+              }
+            ViewBag.BrandId =
+                    new SelectList(db.Brands, "BrandId", "Name", motorcycleViewModel.Motorcycle.BrandId);
+            return View(motorcycleViewModel);
+          }
 
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Edit(MotorcycleVM model, FormCollection formCollection)
-        //{
-        //    //var moto = db.Motorcycles
-        //    //        .Where(m => m.MotorcycleId == model.Motorcycle.MotorcycleId).FirstOrDefault();
-        //    var moto2 = new Motorcycle();
-        //    moto2.Model = formCollection[model.Motorcycle.Model];
-        //    var motoPriceToString = moto2.Price.ToString();
-        //    motoPriceToString = formCollection[model.Motorcycle.Price.ToString()];
-
-        //    //var brd2 = db.Motorcycles.Where(m => m.Brand.Name == model.Motorcycle.Brand.Name).FirstOrDefault();
-
-        //    //var brd3 = new Brand();
-
-        //    //brd3.Name = formCollection[model.BrandVM.Name];
-
-        //    //var dlr1 = db.Dealers
-        //    //    .Where(d => d.DealerId == model.Dealer.DealerId).FirstOrDefault();
-        //    //var dlr2 = new Dealer();
-        //    //dlr2.Name = formCollection[model.Dealer.Name];
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(moto2).State = EntityState.Modified;
-        //        //db.Entry(brd3).State = EntityState.Modified;
-        //        //db.Entry(dlr2).State = EntityState.Modified;
-        //        await db.SaveChangesAsync();
-        //    }
-
-        //    var dlrForSpecificMoto = db.Motorcycles.Select(m => m.Dealers).ToList();
-        //    var motoVM = new MotorcycleVM()
-        //    {
-        //        Motorcycle = moto2,
-        //        //Dealer = dlr2,
-        //        //BrandVM = brd3
-        //    };
-        //    ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name", model.Motorcycle.BrandId);
-        //    return View(motoVM);
-        //}
-
-        // POST: Motorcycles/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Edit(MotorcycleVM model)
-        //{
-        //    var formColletion = new FormCollection();
-        //    formColletion.AllKeys;
-        //    var form = FormCollection[model.Dealer.DealerId];
-        //        //if (model == null)
-        //        //throw new ArgumentNullException();
-
-        //    //var dealerName = motorcycle.Dealer.Name;
-
-        //    //var f = await db.Motorcycles.Where(d => d.Dealers == model.Dealers)..Select(new Dealer 
-        //    //{
-        //    //    Name = model.Dealer.Name,
-        //    //    DealerId = model.Dealer.DealerId,
-        //    //    Address = model.Dealer.Address,
-        //    //    Brands = model.Dealer.Brands,
-        //    //    PhoneNumber = model.Dealer.PhoneNumber
-        //    //});
-
-        //    var moto = db.Motorcycles
-        //        .Where(m => m.MotorcycleId == model.Motorcycle.MotorcycleId).FirstOrDefault();
-
-        //    if(moto != null)
-        //    {
-        //        moto.MotorcycleId = model.Motorcycle.MotorcycleId;
-        //        moto.Model = model.Motorcycle.Model;
-        //        moto.Price = model.Motorcycle.Price;
-        //        moto.Brand = model.Motorcycle.Brand;
-        //        moto.Dealers = model.Motorcycle.Dealers;
-        //    }
-
-        //    var findSelectedDealers = new Dealer
-        //    {
-        //        Name = model.Dealer.Name,
-        //        DealerId = model.Dealer.DealerId,
-        //        Address = model.Dealer.Address,
-        //        Brands = model.Dealer.Brands,
-        //        PhoneNumber = model.Dealer.PhoneNumber
-        //    };
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(moto).State = EntityState.Modified;
-        //        db.Entry(findSelectedDealers).State = EntityState.Modified;
-        //        await db.SaveChangesAsync();
-        //        return RedirectToAction("Index");
-        //    }
-
-
-        //    var motorcycle2 = await db.Motorcycles.FindAsync(model.Motorcycle.MotorcycleId);
-        //    //var allDealers = await db.Dealers.ToListAsync();
-        //    //var dealers = await db.Motorcycles.Where(d => d.Dealers == model.Dealers).ToListAsync();
-        //    MotorcycleVM motorcycle3 = new MotorcycleVM
-        //    {
-        //        Motorcycle = moto,
-        //        Dealers = new List<Dealer>(),
-        //        //Dealers = new List<Dealer>().Where(d => d.DealerId == findSelectedDealers.DealerId).ToList(),
-        //        //AllDealers = allDealers
-        //    };
-
-
-        //    //var findSelectedDealers = db.Dealers.Where(d => d.Name == motorcycle.Dealer.Name).FirstOrDefault();
-
-        //    //if (findSelectedDealers != null)
-        //    //{
-        //    //    findSelectedDealers.Name = motorcycle.Dealer.Name;
-        //    //    findSelectedDealers.DealerId = motorcycle.Dealer.DealerId;
-        //    //    findSelectedDealers.Address = motorcycle.Dealer.Address;
-        //    //    findSelectedDealers.Brands = motorcycle.Dealer.Brands;
-        //    //    findSelectedDealers.PhoneNumber = motorcycle.Dealer.PhoneNumber;
-        //    //}
-
-        //    ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name", model.Motorcycle.BrandId);
-        //    //ViewBag.DealerId = new SelectList(db.Dealers, "DealerId", "Name", motorcycle.Dealer.DealerId);
-        //    return View(motorcycle3);
-        //}
+     
 
         // GET: Motorcycles/Delete/5
         public async Task<ActionResult> Delete(int? id)
