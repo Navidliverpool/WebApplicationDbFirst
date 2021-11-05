@@ -102,14 +102,12 @@ namespace WebApplicationDbFirst.Controllers
    	    
   			if (motorcycleViewModel == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
   
-  			
-  
               if (ModelState.IsValid)
               {
-  				var jobToUpdate = db.Motorcycles
+  				var motorcycleToUpdate = db.Motorcycles
   					.Include(i => i.Dealers).First(i => i.MotorcycleId == motorcycleViewModel.Motorcycle.MotorcycleId);
   
-  	            if (TryUpdateModel(jobToUpdate,"Motorcycle",new string[]{"Title","EmployerID"} ))
+  	            if (TryUpdateModel(motorcycleToUpdate,"Motorcycle",new string[]{"Model", "MotorcycleId" } ))
   	            {
   		            var newDealers = db.Dealers.Where(
                          m => motorcycleViewModel.SelectedDealers.Contains(m.DealerId)).ToList();
@@ -118,15 +116,15 @@ namespace WebApplicationDbFirst.Controllers
   					{
   						if (!updatedDealers.Contains(dealer.DealerId))
   						{
-  							jobToUpdate.Dealers.Remove(dealer);
+  							motorcycleToUpdate.Dealers.Remove(dealer);
   						}
                          else
                              {
-                                 jobToUpdate.Dealers.Add((dealer));
+                                 motorcycleToUpdate.Dealers.Add((dealer));
                              }
                      }
 
-                    db.Entry(jobToUpdate).State = System.Data.Entity.EntityState.Modified;
+                    db.Entry(motorcycleToUpdate).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                  }
 
