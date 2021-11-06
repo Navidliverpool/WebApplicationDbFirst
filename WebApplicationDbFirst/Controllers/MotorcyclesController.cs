@@ -85,8 +85,8 @@ namespace WebApplicationDbFirst.Controllers
 
             motorcycleViewModel.AllDealers = allDealersList.Select(d => new SelectListItem
             {
-                Text = o.Name,
-                Value = o.DealerId.ToString()
+                Text = d.Name,
+                Value = d.DealerId.ToString()
             });
 
             ViewBag.BrandId =

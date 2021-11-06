@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplicationDbFirst;
+using WebApplicationDbFirst.Models;
 
 namespace WebApplicationDbFirst.Controllers
 {
@@ -66,13 +67,44 @@ namespace WebApplicationDbFirst.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Dealer dealer = await db.Dealers.FindAsync(id);
-            if (dealer == null)
+
+            var motorcycleViewModel = new DealerVM
             {
+                Dealer = db.Dealers.Include(i => i.Brands).First(i => i.DealerId == id),
+            };
+
+            if (motorcycleViewModel.Dealer == null)
                 return HttpNotFound();
-            }
-            return View(dealer);
+
+            var allDealersList = db.Brands.ToList();
+
+            motorcycleViewModel.AllBrands = allDealersList.Select(d => new SelectListItem
+            {
+                Text = d.Name,
+                Value = d.BrandId.ToString()
+            });
+
+            //ViewBag.BrandId =
+            //        new SelectList(db.Brands, "BrandId", "Name", motorcycleViewModel.Motorcycle.BrandId);
+
+            return View(motorcycleViewModel);
         }
+
+
+        //// GET: Dealers/Edit/5
+        //public async Task<ActionResult> Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Dealer dealer = await db.Dealers.FindAsync(id);
+        //    if (dealer == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(dealer);
+        //}
 
         // POST: Dealers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
