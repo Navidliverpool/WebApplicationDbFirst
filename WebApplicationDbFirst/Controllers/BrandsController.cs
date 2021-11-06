@@ -68,27 +68,60 @@ namespace WebApplicationDbFirst.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var motorcycleViewModel = new BrandVM
+            var brandViewModel = new BrandVM
             {
-                Brand = db.Brands.Include(i => i.Dealers).First(i => i.BrandId == id),
+                Brand = db.Brands.Include(i => i.Dealers).Include(i => i.Motorcycles).First(i => i.BrandId == id),
+               
             };
 
-            if (motorcycleViewModel.Brand == null)
+            if (brandViewModel.Brand == null)
                 return HttpNotFound();
 
             var allDealersList = db.Dealers.ToList();
-
-            motorcycleViewModel.AllDealers = allDealersList.Select(d => new SelectListItem
+            brandViewModel.AllDealers = allDealersList.Select(d => new SelectListItem
             {
                 Text = d.Name,
                 Value = d.DealerId.ToString()
             });
-            return View(motorcycleViewModel);
+
+            var allMotocyclesList = db.Motorcycles.ToList();
+            brandViewModel.AllMotorcycles = allMotocyclesList.Select(m => new SelectListItem
+            {
+                Text = m.Model,
+                Value = m.MotorcycleId.ToString()
+            });
+
+            return View(brandViewModel);
         }
-            // POST: Brands/Edit/5
-            // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-            // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-            [HttpPost]
+
+        //public async Task<ActionResult> Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+
+        //    var motorcycleViewModel = new BrandVM
+        //    {
+        //        Brand = db.Brands.Include(i => i.Dealers).First(i => i.BrandId == id),
+        //    };
+
+        //    if (motorcycleViewModel.Brand == null)
+        //        return HttpNotFound();
+
+        //    var allDealersList = db.Dealers.ToList();
+
+        //    motorcycleViewModel.AllDealers = allDealersList.Select(d => new SelectListItem
+        //    {
+        //        Text = d.Name,
+        //        Value = d.DealerId.ToString()
+        //    });
+        //    return View(motorcycleViewModel);
+        //}
+        // POST: Brands/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "BrandId,Name")] Brand brand)
         {
