@@ -23,5 +23,21 @@ namespace WebApplicationDbFirst.Models
             }
             set { _selectedDealers = value; }
         }
+
+        public Motorcycle motorcycle { get; set; }
+        public IEnumerable<SelectListItem> AllMotorcycles { get; set; }
+        private List<int> _selectedMotorcycles;
+        public List<int> SelectedBrands
+        {
+            get
+            {
+                if (_selectedMotorcycles == null)
+                {
+                    _selectedMotorcycles = Brand.Motorcycles.Select(m => m.MotorcycleId).ToList();
+                }
+                return _selectedMotorcycles;
+            }
+            set { _selectedMotorcycles = value; }
+        }
     }
 }
