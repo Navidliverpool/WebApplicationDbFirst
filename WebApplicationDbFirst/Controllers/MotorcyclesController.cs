@@ -83,7 +83,7 @@ namespace WebApplicationDbFirst.Controllers
 
             var allDealersList = db.Dealers.ToList();
 
-            motorcycleViewModel.AllDealers = allDealersList.Select(o => new SelectListItem
+            motorcycleViewModel.AllDealers = allDealersList.Select(d => new SelectListItem
             {
                 Text = o.Name,
                 Value = o.DealerId.ToString()

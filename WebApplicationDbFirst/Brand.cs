@@ -20,7 +20,7 @@ namespace WebApplicationDbFirst
             this.Motorcycles = new HashSet<Motorcycle>();
             this.Dealers = new HashSet<Dealer>();
         }
-    
+        
         public int BrandId { get; set; }
         public string Name { get; set; }
     

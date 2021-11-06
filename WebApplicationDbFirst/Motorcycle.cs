@@ -27,7 +27,6 @@ namespace WebApplicationDbFirst
         [DisplayName("Insert the Price")]
         public double Price { get; set; }
         public Nullable<int> BrandId { get; set; }
-    
         public virtual Brand Brand { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Dealer> Dealers { get; set; }
