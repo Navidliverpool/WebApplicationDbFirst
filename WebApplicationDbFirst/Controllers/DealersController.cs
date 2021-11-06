@@ -68,39 +68,61 @@ namespace WebApplicationDbFirst.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var motorcycleViewModel = new DealerVM
+            var dealerViewModel = new DealerVM
             {
                 Dealer = db.Dealers.Include(i => i.Brands).First(i => i.DealerId == id),
             };
 
-            if (motorcycleViewModel.Dealer == null)
+            if (dealerViewModel.Dealer == null)
                 return HttpNotFound();
 
-            var allDealersList = db.Brands.ToList();
+            var allBrandsList = db.Brands.ToList();
 
-            motorcycleViewModel.AllBrands = allDealersList.Select(d => new SelectListItem
+            dealerViewModel.AllBrands = allBrandsList.Select(d => new SelectListItem
             {
                 Text = d.Name,
                 Value = d.BrandId.ToString()
             });
 
-            return View(motorcycleViewModel);
+            return View(dealerViewModel);
         }
 
-        // POST: Dealers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "DealerId,Name,Address,PhoneNumber")] Dealer dealer)
+        public ActionResult Edit(DealerVM dealerViewModel)
         {
+
+            if (dealerViewModel == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             if (ModelState.IsValid)
             {
-                db.Entry(dealer).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                var dealerToUpdate = db.Dealers
+                    .Include(i => i.Brands).First(i => i.DealerId == dealerViewModel.Dealer.DealerId);
+
+                if (TryUpdateModel(dealerToUpdate, "Dealer", new string[] { "Name", "DealerId" }))
+                {
+                    var newBrands = db.Brands.Where(
+                       m => dealerViewModel.SelectedBrands.Contains(m.BrandId)).ToList();
+                    var updatedBrands = new HashSet<int>(dealerViewModel.SelectedBrands);
+                    foreach (Brand brand in db.Brands)
+                    {
+                        if (!updatedBrands.Contains(brand.BrandId))
+                        {
+                            dealerToUpdate.Brands.Remove(brand);
+                        }
+                        else
+                        {
+                            dealerToUpdate.Brands.Add((brand));
+                        }
+                    }
+
+                    db.Entry(dealerToUpdate).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("Index");
             }
-            return View(dealer);
+            return View(dealerViewModel);
         }
 
         // GET: Dealers/Delete/5
