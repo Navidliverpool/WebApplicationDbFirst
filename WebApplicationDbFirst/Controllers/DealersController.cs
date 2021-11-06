@@ -84,27 +84,8 @@ namespace WebApplicationDbFirst.Controllers
                 Value = d.BrandId.ToString()
             });
 
-            //ViewBag.BrandId =
-            //        new SelectList(db.Brands, "BrandId", "Name", motorcycleViewModel.Motorcycle.BrandId);
-
             return View(motorcycleViewModel);
         }
-
-
-        //// GET: Dealers/Edit/5
-        //public async Task<ActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Dealer dealer = await db.Dealers.FindAsync(id);
-        //    if (dealer == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(dealer);
-        //}
 
         // POST: Dealers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 

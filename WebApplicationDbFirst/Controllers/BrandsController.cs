@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplicationDbFirst;
+using WebApplicationDbFirst.Models;
 
 namespace WebApplicationDbFirst.Controllers
 {
@@ -59,25 +60,35 @@ namespace WebApplicationDbFirst.Controllers
             return View(brand);
         }
 
-        // GET: Brands/Edit/5
+        // GET: Dealers/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Brand brand = await db.Brands.FindAsync(id);
-            if (brand == null)
-            {
-                return HttpNotFound();
-            }
-            return View(brand);
-        }
 
-        // POST: Brands/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+            var motorcycleViewModel = new BrandVM
+            {
+                Brand = db.Brands.Include(i => i.Dealers).First(i => i.BrandId == id),
+            };
+
+            if (motorcycleViewModel.Brand == null)
+                return HttpNotFound();
+
+            var allDealersList = db.Dealers.ToList();
+
+            motorcycleViewModel.AllDealers = allDealersList.Select(d => new SelectListItem
+            {
+                Text = d.Name,
+                Value = d.DealerId.ToString()
+            });
+            return View(motorcycleViewModel);
+        }
+            // POST: Brands/Edit/5
+            // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+            // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+            [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "BrandId,Name")] Brand brand)
         {
