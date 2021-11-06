@@ -22,22 +22,22 @@ namespace WebApplicationDbFirst
             this.Brands = new HashSet<Brand>();
             this.Motorcycles = new HashSet<Motorcycle>();
         }
-        [Required]
+        //[Required]
         public int DealerId { get; set; }
 
-        [Required]
-        [StringLength(10, ErrorMessage = "Name length can't be more than {0}.")]
-        [DisplayName("Insert Name")]
+        //[Required]
+        //[StringLength(10, ErrorMessage = "Name length can't be more than {0}.")]
+        //[DisplayName("Insert Name")]
         public string Name { get; set; }
 
-        [Required]
-        [StringLength(20, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 4)]
-        [DisplayName("Insert Address")]
+        //[Required]
+        //[StringLength(20, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 4)]
+        //[DisplayName("Insert Address")]
         public string Address { get; set; }
 
-        [Required]
-        [StringLength(10, ErrorMessage = "Name length can't be more than {0}.")]
-        [DisplayName("Insert PhoneNumber")]
+        //[Required]
+        //[StringLength(10, ErrorMessage = "Name length can't be more than {0}.")]
+        //[DisplayName("Insert PhoneNumber")]
         public int PhoneNumber { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
