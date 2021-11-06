@@ -94,45 +94,74 @@ namespace WebApplicationDbFirst.Controllers
             return View(brandViewModel);
         }
 
-        //public async Task<ActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-
-        //    var motorcycleViewModel = new BrandVM
-        //    {
-        //        Brand = db.Brands.Include(i => i.Dealers).First(i => i.BrandId == id),
-        //    };
-
-        //    if (motorcycleViewModel.Brand == null)
-        //        return HttpNotFound();
-
-        //    var allDealersList = db.Dealers.ToList();
-
-        //    motorcycleViewModel.AllDealers = allDealersList.Select(d => new SelectListItem
-        //    {
-        //        Text = d.Name,
-        //        Value = d.DealerId.ToString()
-        //    });
-        //    return View(motorcycleViewModel);
-        //}
-        // POST: Brands/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "BrandId,Name")] Brand brand)
+        public ActionResult Edit(BrandVM brandViewModel)
         {
+
+            if (brandViewModel == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             if (ModelState.IsValid)
             {
-                db.Entry(brand).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                var brandToUpdate = db.Brands
+                    .Include(i => i.Dealers).Include(i => i.Motorcycles).First(i => i.BrandId == brandViewModel.Brand.BrandId);
+
+                if (TryUpdateModel(brandToUpdate, "Brand", new string[] { "Name", "BrandId" }))
+                {
+                    var newDealer = db.Dealers.Where(
+                       m => brandViewModel.SelectedDealers.Contains(m.DealerId)).ToList();
+                    var updatedDealers = new HashSet<int>(brandViewModel.SelectedDealers);
+                    foreach (Dealer dealer in db.Dealers)
+                    {
+                        if (!updatedDealers.Contains(dealer.DealerId))
+                        {
+                            brandToUpdate.Dealers.Remove(dealer);
+                        }
+                        else
+                        {
+                            brandToUpdate.Dealers.Add((dealer));
+                        }
+                    }
+
+                    var newMotorcycle = db.Motorcycles.Where(
+                        m => brandViewModel.SelectedMotorcycles.Contains(m.MotorcycleId)).ToList();
+                    var updatedMotorcycles = new HashSet<int>(brandViewModel.SelectedMotorcycles);
+                    foreach (Motorcycle motorcycle in db.Motorcycles)
+                    {
+                        if (!updatedMotorcycles.Contains(motorcycle.MotorcycleId))
+                        {
+                            brandToUpdate.Motorcycles.Remove(motorcycle);
+                        }
+                        else
+                        {
+                            brandToUpdate.Motorcycles.Add((motorcycle));
+                        }
+                    }
+
+                    db.Entry(brandToUpdate).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("Index");
             }
-            return View(brand);
+            return View(dealerViewModel);
         }
+
+        //// POST: Brands/Edit/5
+        //// To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Edit([Bind(Include = "BrandId,Name")] Brand brand)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(brand).State = EntityState.Modified;
+        //        await db.SaveChangesAsync();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(brand);
+        //}
 
         // GET: Brands/Delete/5
         public async Task<ActionResult> Delete(int? id)
