@@ -144,7 +144,7 @@ namespace WebApplicationDbFirst.Controllers
 
                 return RedirectToAction("Index");
             }
-            return View(dealerViewModel);
+            return View(brandViewModel);
         }
 
         //// POST: Brands/Edit/5

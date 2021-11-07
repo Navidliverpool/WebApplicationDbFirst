@@ -107,7 +107,7 @@ namespace WebApplicationDbFirst.Controllers
   				var motorcycleToUpdate = db.Motorcycles
   					.Include(i => i.Dealers).First(i => i.MotorcycleId == motorcycleViewModel.Motorcycle.MotorcycleId);
   
-  	            if (TryUpdateModel(motorcycleToUpdate,"Motorcycle",new string[]{"Model", "MotorcycleId" } ))
+  	            if (TryUpdateModel(motorcycleToUpdate,"Motorcycle",new string[]{"Model", "Price", "BrandId", "Dealers", "MotorcycleId" } ))
   	            {
   		            var newDealers = db.Dealers.Where(
                          m => motorcycleViewModel.SelectedDealers.Contains(m.DealerId)).ToList();

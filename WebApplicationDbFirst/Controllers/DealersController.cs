@@ -99,7 +99,7 @@ namespace WebApplicationDbFirst.Controllers
                 var dealerToUpdate = db.Dealers
                     .Include(i => i.Brands).First(i => i.DealerId == dealerViewModel.Dealer.DealerId);
 
-                if (TryUpdateModel(dealerToUpdate, "Dealer", new string[] { "Name", "DealerId" }))
+                if (TryUpdateModel(dealerToUpdate, "Dealer", new string[] { "Name", "Address", "PhoneNumber", "DealerId" }))
                 {
                     var newBrands = db.Brands.Where(
                        m => dealerViewModel.SelectedBrands.Contains(m.BrandId)).ToList();
