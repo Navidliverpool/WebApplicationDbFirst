@@ -36,7 +36,6 @@ namespace WebApplicationDbFirst
         public string Address { get; set; }
 
         [Required]
-        [StringLength(10, ErrorMessage = "Name length can't be more than {0}.")]
         [DisplayName("Insert PhoneNumber")]
         public int PhoneNumber { get; set; }
 

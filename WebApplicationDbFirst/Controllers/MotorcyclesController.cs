@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using WebApplicationDbFirst;
 using WebApplicationDbFirst.ViewModels;
 using WebApplicationDbFirst.Models;
+using WebApplicationDbFirst.Models.Services;
 
 namespace WebApplicationDbFirst.Controllers
 {
@@ -21,7 +22,6 @@ namespace WebApplicationDbFirst.Controllers
         public async Task<ActionResult> Index()
         {
             var motorcycles = db.Motorcycles.Include(m => m.Brand);
-
             return View(await motorcycles.ToListAsync());
         }
 
@@ -105,9 +105,9 @@ namespace WebApplicationDbFirst.Controllers
               if (ModelState.IsValid)
               {
   				var motorcycleToUpdate = db.Motorcycles
-  					.Include(i => i.Dealers).First(i => i.MotorcycleId == motorcycleViewModel.Motorcycle.MotorcycleId);
+  					.Include(m => m.Dealers).First(m => m.MotorcycleId == motorcycleViewModel.Motorcycle.MotorcycleId);
   
-  	            if (TryUpdateModel(motorcycleToUpdate,"Motorcycle",new string[]{"Model", "Price", "BrandId", "Dealers", "MotorcycleId" } ))
+  	            if (TryUpdateModel(motorcycleToUpdate,"Motorcycle",new string[]{"Model", "Price", "Image", "BrandId", "Dealers", "MotorcycleId" } ))
   	            {
   		            var newDealers = db.Dealers.Where(
                          m => motorcycleViewModel.SelectedDealers.Contains(m.DealerId)).ToList();
@@ -128,7 +128,13 @@ namespace WebApplicationDbFirst.Controllers
                     db.SaveChanges();
                  }
 
-                  return RedirectToAction("Index");
+                HttpPostedFileBase file = Request.Files["ImageData"];
+                ContentRepository service = new ContentRepository();
+                int i = service.UploadImageInDataBase(file, motorcycleViewModel);
+                if (i == 1)
+                {
+                    return RedirectToAction("Index");
+                }
               }
             ViewBag.BrandId =
                     new SelectList(db.Brands, "BrandId", "Name", motorcycleViewModel.Motorcycle.BrandId);
@@ -136,7 +142,6 @@ namespace WebApplicationDbFirst.Controllers
           }
 
 
-     
 
         // GET: Motorcycles/Delete/5
         public async Task<ActionResult> Delete(int? id)

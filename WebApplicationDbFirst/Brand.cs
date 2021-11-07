@@ -27,7 +27,7 @@ namespace WebApplicationDbFirst
 
         [Required]
         [StringLength(10, ErrorMessage = "Name length can't be more than {0}.")]
-        [DisplayName("Insert Name")]
+        [DisplayName("Insert BrandName")]
         public string Name { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

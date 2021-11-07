@@ -10,13 +10,15 @@
 
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
+                @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
+            <div class="form-horizontal">
     <h4>Motorcycle</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Motorcycle.MotorcycleId)
+
+    <input type="file" name="ImageData" id="ImageData" onchange="fileCheck(this);" />
 
     <div class="form-group">
         @Html.LabelFor(model => model.Motorcycle.Model, new { @class = "control-label col-md-2" })
