@@ -22,12 +22,12 @@ namespace WebApplicationDbFirst
             this.Motorcycles = new HashSet<Motorcycle>();
             this.Dealers = new HashSet<Dealer>();
         }
-        //[Required]
+        [Required]
         public int BrandId { get; set; }
 
-        //[Required]
-        //[StringLength(10, ErrorMessage = "Name length can't be more than {0}.")]
-        //[DisplayName("Insert Name")]
+        [Required]
+        [StringLength(10, ErrorMessage = "Name length can't be more than {0}.")]
+        [DisplayName("Insert Name")]
         public string Name { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
