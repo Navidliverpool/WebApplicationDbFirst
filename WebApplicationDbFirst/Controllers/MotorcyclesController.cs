@@ -10,7 +10,8 @@ using System.Web.Mvc;
 using WebApplicationDbFirst;
 using WebApplicationDbFirst.ViewModels;
 using WebApplicationDbFirst.Models;
-using WebApplicationDbFirst.Models.Services;
+//using WebApplicationDbFirst.Models.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApplicationDbFirst.Controllers
 {
@@ -128,19 +129,30 @@ namespace WebApplicationDbFirst.Controllers
                     db.SaveChanges();
                  }
 
-                HttpPostedFileBase file = Request.Files["ImageData"];
-                ContentRepository service = new ContentRepository();
-                int i = service.UploadImageInDataBase(file, motorcycleViewModel);
-                if (i == 1)
-                {
-                    return RedirectToAction("Index");
-                }
-              }
+                //var newImage = db.Motorcycles.Select(m => m.Image).FirstOrDefault();
+                //TryUpdateModel(newImage, "Motorcycle", new string[] { "Image" });
+                //HttpPostedFileBase file = Request.Files["Image"];
+                //newImage = motorcycleViewModel.Image;
+                //Int32 length = file.ContentLength;
+                //byte[] tempImage = new byte[length];
+                //file.InputStream.Read(tempImage, 0, length);
+                //newImage.ActualImage = tempImage;
+
+                //    db.Entry(newImage).State = System.Data.Entity.EntityState.Modified;
+                //db.SaveChanges();
+
+                //HttpPostedFileBase file = Request.Files["Image"];
+                //ContentRepository service = new ContentRepository();
+                //int i = service.UploadImageInDataBase(file, motorcycleViewModel);
+                //if (i == 1)
+                //{
+                //    return RedirectToAction("Index");
+                //}
+            }
             ViewBag.BrandId =
                     new SelectList(db.Brands, "BrandId", "Name", motorcycleViewModel.Motorcycle.BrandId);
             return View(motorcycleViewModel);
           }
-
 
 
         // GET: Motorcycles/Delete/5
