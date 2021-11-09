@@ -14,14 +14,18 @@ namespace WebApplicationDbFirst
     using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Core.Objects;
     using System.Linq;
-    
+    using System.Data.Entity.Validation;
+    using System.Diagnostics;
+    using WebApplicationDbFirst.Controllers;
+    using WebApplicationDbFirst.Models;
+
     public partial class NavEcommerceDBfirstEntities : DbContext
     {
         public NavEcommerceDBfirstEntities()
             : base("name=NavEcommerceDBfirstEntities")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -31,7 +35,9 @@ namespace WebApplicationDbFirst
         public virtual DbSet<Dealer> Dealers { get; set; }
         public virtual DbSet<Motorcycle> Motorcycles { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-    
+
+     
+
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
             var diagramnameParameter = diagramname != null ?

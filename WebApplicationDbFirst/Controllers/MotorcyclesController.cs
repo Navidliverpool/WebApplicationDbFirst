@@ -12,6 +12,7 @@ using WebApplicationDbFirst.ViewModels;
 using WebApplicationDbFirst.Models;
 //using WebApplicationDbFirst.Models.Services;
 using Microsoft.AspNetCore.Http;
+using WebApplicationDbFirst.Models.Services;
 
 namespace WebApplicationDbFirst.Controllers
 {
@@ -105,6 +106,7 @@ namespace WebApplicationDbFirst.Controllers
   
               if (ModelState.IsValid)
               {
+
   				var motorcycleToUpdate = db.Motorcycles
   					.Include(m => m.Dealers).First(m => m.MotorcycleId == motorcycleViewModel.Motorcycle.MotorcycleId);
   
@@ -125,9 +127,19 @@ namespace WebApplicationDbFirst.Controllers
                              }
                      }
 
+                    //HttpPostedFileBase file = Request.Files[0];
+                    //byte[] imageSize = new byte[file.ContentLength];
+                    //file.InputStream.Read(imageSize, 0, (int)file.ContentLength);
+                    //motorcycleToUpdate.Image = imageSize;
+
+                    HttpPostedFileBase file = Request.Files["Image"];
+                    ContentRepository service = new ContentRepository();
+                    service.UploadImageInDataBase(file, motorcycleViewModel);
+
                     db.Entry(motorcycleToUpdate).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                  }
+
 
                 //var newImage = db.Motorcycles.Select(m => m.Image).FirstOrDefault();
                 //TryUpdateModel(newImage, "Motorcycle", new string[] { "Image" });

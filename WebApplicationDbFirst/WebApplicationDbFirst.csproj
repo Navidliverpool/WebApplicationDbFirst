@@ -207,6 +207,7 @@
     <Compile Include="Models\DealerVM.cs" />
     <Compile Include="Models\MotorcycleVM.cs" />
     <Compile Include="Models\Services\ContentRepository.cs" />
+    <Compile Include="Models\Services\UploadImageToDb.cs" />
     <Compile Include="Motorcycle.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

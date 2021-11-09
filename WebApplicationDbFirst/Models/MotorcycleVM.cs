@@ -9,7 +9,6 @@ namespace WebApplicationDbFirst.Models
     public class MotorcycleVM
     {
         public Motorcycle Motorcycle { get; set; }
-        public byte[] Image { get; set; }
         public IEnumerable<SelectListItem> AllDealers { get; set; }
         private List<int> _selectedDealers;
         public List<int> SelectedDealers
