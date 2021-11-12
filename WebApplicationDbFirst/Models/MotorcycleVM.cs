@@ -10,8 +10,8 @@ namespace WebApplicationDbFirst.Models
     {
         public Motorcycle Motorcycle { get; set; }
         public IEnumerable<SelectListItem> AllDealers { get; set; }
-        private List<int> _selectedDealers;
-        public List<int> SelectedDealers
+        private IEnumerable<int> _selectedDealers;
+        public IEnumerable<int> SelectedDealers
         {
             get
             {

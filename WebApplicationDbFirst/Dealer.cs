@@ -11,9 +11,7 @@ namespace WebApplicationDbFirst
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Dealer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,26 +20,14 @@ namespace WebApplicationDbFirst
             this.Brands = new HashSet<Brand>();
             this.Motorcycles = new HashSet<Motorcycle>();
         }
-        [Required]
+    
         public int DealerId { get; set; }
-
-        [Required]
-        [StringLength(10, ErrorMessage = "Name length can't be more than {0}.")]
-        [DisplayName("Insert Name")]
         public string Name { get; set; }
-
-        [Required]
-        [StringLength(20, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 4)]
-        [DisplayName("Insert Address")]
         public string Address { get; set; }
-
-        [Required]
-        [DisplayName("Insert PhoneNumber")]
         public int PhoneNumber { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Brand> Brands { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Motorcycle> Motorcycles { get; set; }
     }

@@ -13,6 +13,7 @@ using WebApplicationDbFirst.Models;
 //using WebApplicationDbFirst.Models.Services;
 using Microsoft.AspNetCore.Http;
 using WebApplicationDbFirst.Models.Services;
+using System.IO;
 
 namespace WebApplicationDbFirst.Controllers
 {
@@ -99,7 +100,7 @@ namespace WebApplicationDbFirst.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(MotorcycleVM motorcycleViewModel)
+        public ActionResult Edit(MotorcycleVM motorcycleViewModel, HttpPostedFileBase image)
            {
    	    
   			if (motorcycleViewModel == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -125,42 +126,42 @@ namespace WebApplicationDbFirst.Controllers
                              {
                                  motorcycleToUpdate.Dealers.Add((dealer));
                              }
-                     }
 
-                    //HttpPostedFileBase file = Request.Files[0];
-                    //byte[] imageSize = new byte[file.ContentLength];
-                    //file.InputStream.Read(imageSize, 0, (int)file.ContentLength);
-                    //motorcycleToUpdate.Image = imageSize;
+                     
+                    }
 
-                    HttpPostedFileBase file = Request.Files["Image"];
-                    ContentRepository service = new ContentRepository();
-                    service.UploadImageInDataBase(file, motorcycleViewModel);
+                    byte[] data;
+                    using (Stream inputStream = image.InputStream)
+                    {
+                        MemoryStream memoryStream = inputStream as MemoryStream;
+                        if (memoryStream == null)
+                        {
+                            memoryStream = new MemoryStream();
+                            inputStream.CopyTo(memoryStream);
+                        }
+                        data = memoryStream.ToArray();
+                    }
+
+                     motorcycleToUpdate.Image = data;
 
                     db.Entry(motorcycleToUpdate).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
-                 }
-
-
-                //var newImage = db.Motorcycles.Select(m => m.Image).FirstOrDefault();
-                //TryUpdateModel(newImage, "Motorcycle", new string[] { "Image" });
-                //HttpPostedFileBase file = Request.Files["Image"];
-                //newImage = motorcycleViewModel.Image;
-                //Int32 length = file.ContentLength;
-                //byte[] tempImage = new byte[length];
-                //file.InputStream.Read(tempImage, 0, length);
-                //newImage.ActualImage = tempImage;
-
-                //    db.Entry(newImage).State = System.Data.Entity.EntityState.Modified;
-                //db.SaveChanges();
-
-                //HttpPostedFileBase file = Request.Files["Image"];
-                //ContentRepository service = new ContentRepository();
-                //int i = service.UploadImageInDataBase(file, motorcycleViewModel);
-                //if (i == 1)
-                //{
-                //    return RedirectToAction("Index");
-                //}
+                }
             }
+
+
+            var allDealersList = db.Dealers.ToList();
+
+            var brand = db.Brands.FirstOrDefault(b=>b.BrandId== motorcycleViewModel.Motorcycle.BrandId);
+
+            motorcycleViewModel.Motorcycle.Brand = brand;
+
+            motorcycleViewModel.AllDealers = allDealersList.Select(d => new SelectListItem
+            {
+                Text = d.Name,
+                Value = d.DealerId.ToString()
+            });
+
             ViewBag.BrandId =
                     new SelectList(db.Brands, "BrandId", "Name", motorcycleViewModel.Motorcycle.BrandId);
             return View(motorcycleViewModel);
