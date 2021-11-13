@@ -13,54 +13,56 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Motorcycle</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Motorcycle.MotorcycleId)
+<div class="form-horizontal">
+    <h4>Motorcycle</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Motorcycle.MotorcycleId)
 
-        <span>
-            <input type="file" name="image" id="image" />
-        </span>
+    <span>
+        <input type="file" name="image" id="image" />
+    </span>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Motorcycle.Model, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Motorcycle.Model)
-                @Html.ValidationMessageFor(model => model.Motorcycle.Model, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Motorcycle.Model, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Motorcycle.Model)
+            @Html.ValidationMessageFor(model => model.Motorcycle.Model, "", new { @class = "text-danger" })
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Motorcycle.Price, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Motorcycle.Price)
-                @Html.ValidationMessageFor(model => model.Motorcycle.Price, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Motorcycle.BrandId, "Select appropriate Brand", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.Motorcycle.BrandId,
-                        (SelectList)ViewBag.BrandId,
-                        Model.Motorcycle.Brand.BrandId)
-                @Html.ValidationMessageFor(model => model.Motorcycle.BrandId)
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.AllDealers, "Dealer", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.ListBoxFor(m => m.SelectedDealers, Model.AllDealers)
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-
     </div>
+
+    <img src="data:image;base64,@System.Convert.ToBase64String(Model.Motorcycle.Image)" width="80" height="80" />
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Motorcycle.Price, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Motorcycle.Price)
+            @Html.ValidationMessageFor(model => model.Motorcycle.Price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Motorcycle.BrandId, "Select appropriate Brand", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Motorcycle.BrandId,
+                    (SelectList)ViewBag.BrandId,
+                    Model.Motorcycle.Brand.BrandId)
+            @Html.ValidationMessageFor(model => model.Motorcycle.BrandId)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.AllDealers, "Dealer", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.ListBoxFor(m => m.SelectedDealers, Model.AllDealers)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+
+</div>
 
 }
 

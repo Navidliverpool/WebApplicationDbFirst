@@ -92,6 +92,15 @@ namespace WebApplicationDbFirst.Controllers
                 Value = d.DealerId.ToString()
             });
 
+            
+            var imageData = db.Motorcycles.Where(m => m.Image == motorcycleViewModel.Motorcycle.Image).FirstOrDefault();
+
+            if(imageData != null)
+            {
+                motorcycleViewModel.Motorcycle.Image = imageData.Image;
+
+            }
+
             ViewBag.BrandId =
                     new SelectList(db.Brands, "BrandId", "Name", motorcycleViewModel.Motorcycle.BrandId);
 
@@ -144,10 +153,11 @@ namespace WebApplicationDbFirst.Controllers
 
                     db.Entry(motorcycleToUpdate).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
+
                 }
               }
 
-
+          
             var allDealersList = db.Dealers.ToList();
 
             var brand = db.Brands.FirstOrDefault(b=>b.BrandId== motorcycleViewModel.Motorcycle.BrandId);
