@@ -126,8 +126,6 @@ namespace WebApplicationDbFirst.Controllers
                              {
                                  motorcycleToUpdate.Dealers.Add((dealer));
                              }
-
-                     
                     }
 
                     byte[] data;
@@ -147,7 +145,7 @@ namespace WebApplicationDbFirst.Controllers
                     db.Entry(motorcycleToUpdate).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                 }
-            }
+              }
 
 
             var allDealersList = db.Dealers.ToList();
