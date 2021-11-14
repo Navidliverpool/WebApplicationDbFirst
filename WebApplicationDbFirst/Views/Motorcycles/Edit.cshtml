@@ -23,6 +23,11 @@
         <input type="file" name="image" id="image" />
     </span>
 
+    @if (Model.Motorcycle.Image != null)
+    {
+        <img src="data:image;base64,@System.Convert.ToBase64String(Model.Motorcycle.Image)" width="80" height="80" />
+    }
+
     <div class="form-group">
         @Html.LabelFor(model => model.Motorcycle.Model, new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -30,8 +35,6 @@
             @Html.ValidationMessageFor(model => model.Motorcycle.Model, "", new { @class = "text-danger" })
         </div>
     </div>
-
-    <img src="data:image;base64,@System.Convert.ToBase64String(Model.Motorcycle.Image)" width="80" height="80" />
 
     <div class="form-group">
         @Html.LabelFor(model => model.Motorcycle.Price, new { @class = "control-label col-md-2" })

@@ -163,7 +163,7 @@ namespace WebApplicationDbFirst.Controllers
             var brand = db.Brands.FirstOrDefault(b=>b.BrandId== motorcycleViewModel.Motorcycle.BrandId);
 
             motorcycleViewModel.Motorcycle.Brand = brand;
-
+           
             motorcycleViewModel.AllDealers = allDealersList.Select(d => new SelectListItem
             {
                 Text = d.Name,
