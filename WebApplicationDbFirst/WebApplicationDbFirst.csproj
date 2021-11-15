@@ -228,15 +228,17 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\dev7logo.png" />
+    <Content Include="Content\images\nemo.jpg" />
+    <Content Include="Content\images\toystory.jpg" />
+    <Content Include="Content\images\up.jpg" />
+    <Content Include="Content\images\walle.jpg" />
     <Content Include="Content\nivo-slider.css" />
+    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="img\Screenshot %2810%29.png" />
-    <Content Include="img\Screenshot %2811%29.png" />
-    <Content Include="img\Screenshot %2812%29.png" />
-    <Content Include="img\Screenshot %289%29.png" />
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
@@ -256,7 +258,10 @@
     <Content Include="Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\images\.DS_Store" />
+    <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -269,6 +274,22 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="themes\bar\arrows.png" />
+    <Content Include="themes\bar\bar.css" />
+    <Content Include="themes\bar\bullets.png" />
+    <Content Include="themes\bar\loading.gif" />
+    <Content Include="themes\dark\arrows.png" />
+    <Content Include="themes\dark\bullets.png" />
+    <Content Include="themes\dark\dark.css" />
+    <Content Include="themes\dark\loading.gif" />
+    <Content Include="themes\default\arrows.png" />
+    <Content Include="themes\default\bullets.png" />
+    <Content Include="themes\default\default.css" />
+    <Content Include="themes\default\loading.gif" />
+    <Content Include="themes\light\arrows.png" />
+    <Content Include="themes\light\bullets.png" />
+    <Content Include="themes\light\light.css" />
+    <Content Include="themes\light\loading.gif" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -298,6 +319,8 @@
     <Content Include="Views\Motorcycles\Edit.cshtml" />
     <Content Include="Views\Motorcycles\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="themes\.DS_Store" />
+    <Content Include="themes\dark\.DS_Store" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
