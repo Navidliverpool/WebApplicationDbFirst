@@ -98,7 +98,6 @@ namespace WebApplicationDbFirst.Controllers
             if(imageData != null)
             {
                 motorcycleViewModel.Motorcycle.Image = imageData.Image;
-
             }
 
             ViewBag.BrandId =

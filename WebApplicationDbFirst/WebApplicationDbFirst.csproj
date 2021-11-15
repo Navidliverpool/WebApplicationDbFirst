@@ -232,6 +232,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\Screenshot %2810%29.png" />
+    <Content Include="img\Screenshot %2811%29.png" />
+    <Content Include="img\Screenshot %2812%29.png" />
+    <Content Include="img\Screenshot %289%29.png" />
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
@@ -275,7 +279,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Brands\Create.cshtml" />
     <Content Include="Views\Brands\Delete.cshtml" />
     <Content Include="Views\Brands\Details.cshtml" />
@@ -291,6 +294,7 @@
     <Content Include="Views\Motorcycles\Details.cshtml" />
     <Content Include="Views\Motorcycles\Edit.cshtml" />
     <Content Include="Views\Motorcycles\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
