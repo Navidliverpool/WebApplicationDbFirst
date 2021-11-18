@@ -1,18 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using WebApplicationDbFirst.Models;
-using System.Data;
-using System.Data.Entity;
-using WebApplicationDbFirst;
 //using WebApplicationDbFirst.Models.Services;
-using Microsoft.AspNetCore.Http;
-using WebApplicationDbFirst.Models.Services;
-using System.IO;
 using WebApplicationDbFirst.Entities;
 
 namespace WebApplicationDbFirst.Controllers

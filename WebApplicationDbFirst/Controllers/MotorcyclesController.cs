@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+//using WebApplicationDbFirst.Models.Services;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using WebApplicationDbFirst.Entities;
 using WebApplicationDbFirst.Models;
-//using WebApplicationDbFirst.Models.Services;
-using Microsoft.AspNetCore.Http;
-using WebApplicationDbFirst.Models.Services;
-using System.IO;
 
 namespace WebApplicationDbFirst.Controllers
 {
@@ -23,6 +21,7 @@ namespace WebApplicationDbFirst.Controllers
         // GET: Motorcycles
         public async Task<ActionResult> Index()
         {
+
             var motorcycles = db.Motorcycles.Include(m => m.Brand);
             return View(await motorcycles.ToListAsync());
         }
@@ -45,6 +44,7 @@ namespace WebApplicationDbFirst.Controllers
         // GET: Motorcycles/Create
         public ActionResult Create()
         {
+
             ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name");
             return View();
         }
@@ -56,6 +56,7 @@ namespace WebApplicationDbFirst.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "MotorcycleId,Model,Price,BrandId")] Motorcycle motorcycle)
         {
+
             if (ModelState.IsValid)
             {
                 db.Motorcycles.Add(motorcycle);
@@ -70,6 +71,11 @@ namespace WebApplicationDbFirst.Controllers
         // GET: Motorcycles/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+
+            //Mapper.CreateMap<Motorcycle, >();
+            //MotorcycleMetaData motorcycleMetaData = Mapper.Map<Motorcycle, MotorcycleMetaData>(motorcycleMeta);
+
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -91,10 +97,10 @@ namespace WebApplicationDbFirst.Controllers
                 Value = d.DealerId.ToString()
             });
 
-            
+
             var imageData = db.Motorcycles.Where(m => m.Image == motorcycleViewModel.Motorcycle.Image).FirstOrDefault();
 
-            if(imageData != null)
+            if (imageData != null)
             {
                 motorcycleViewModel.Motorcycle.Image = imageData.Image;
             }
@@ -108,60 +114,63 @@ namespace WebApplicationDbFirst.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(MotorcycleVM motorcycleViewModel, HttpPostedFileBase image)
-           {
-   	    
-  			if (motorcycleViewModel == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-  
-              if (ModelState.IsValid)
-              {
+        {
 
-  				var motorcycleToUpdate = db.Motorcycles
-  					.Include(m => m.Dealers).First(m => m.MotorcycleId == motorcycleViewModel.Motorcycle.MotorcycleId);
-  
-  	            if (TryUpdateModel(motorcycleToUpdate,"Motorcycle",new string[]{"Model", "Price", "Image", "BrandId", "Dealers", "MotorcycleId" } ))
-  	            {
-  		            var newDealers = db.Dealers.Where(
-                         m => motorcycleViewModel.SelectedDealers.Contains(m.DealerId)).ToList();
-  					var updatedDealers = new HashSet<int>(motorcycleViewModel.SelectedDealers);
-  					foreach (Dealer dealer in db.Dealers)
-  					{
-  						if (!updatedDealers.Contains(dealer.DealerId))
-  						{
-  							motorcycleToUpdate.Dealers.Remove(dealer);
-  						}
-                         else
-                             {
-                                 motorcycleToUpdate.Dealers.Add((dealer));
-                             }
-                    }
+            if (motorcycleViewModel == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-                    byte[] data;
-                    using (Stream inputStream = image.InputStream)
+            if (ModelState.IsValid)
+            {
+
+                var motorcycleToUpdate = db.Motorcycles
+                    .Include(m => m.Dealers).First(m => m.MotorcycleId == motorcycleViewModel.Motorcycle.MotorcycleId);
+
+                if (TryUpdateModel(motorcycleToUpdate, "Motorcycle", new string[] { "Model", "Price", "Image", "BrandId", "Dealers", "MotorcycleId" }))
+                {
+                    var newDealers = db.Dealers.Where(
+                       m => motorcycleViewModel.SelectedDealers.Contains(m.DealerId)).ToList();
+                    var updatedDealers = new HashSet<int>(motorcycleViewModel.SelectedDealers);
+                    foreach (Dealer dealer in db.Dealers)
                     {
-                        MemoryStream memoryStream = inputStream as MemoryStream;
-                        if (memoryStream == null)
+                        if (!updatedDealers.Contains(dealer.DealerId))
                         {
-                            memoryStream = new MemoryStream();
-                            inputStream.CopyTo(memoryStream);
+                            motorcycleToUpdate.Dealers.Remove(dealer);
                         }
-                        data = memoryStream.ToArray();
+                        else
+                        {
+                            motorcycleToUpdate.Dealers.Add((dealer));
+                        }
                     }
 
-                     motorcycleToUpdate.Image = data;
+                    if (image != null)
+                    {
+                        byte[] data;
+                        using (Stream inputStream = image.InputStream)
+                        {
+                            MemoryStream memoryStream = inputStream as MemoryStream;
+                            if (memoryStream == null)
+                            {
+                                memoryStream = new MemoryStream();
+                                inputStream.CopyTo(memoryStream);
+                            }
+                            data = memoryStream.ToArray();
+                        }
+
+                        motorcycleToUpdate.Image = data;
+                    }
 
                     db.Entry(motorcycleToUpdate).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
 
                 }
-              }
+            }
 
-          
+
             var allDealersList = db.Dealers.ToList();
 
-            var brand = db.Brands.FirstOrDefault(b=>b.BrandId== motorcycleViewModel.Motorcycle.BrandId);
+            var brand = db.Brands.FirstOrDefault(b => b.BrandId == motorcycleViewModel.Motorcycle.BrandId);
 
             motorcycleViewModel.Motorcycle.Brand = brand;
-           
+
             motorcycleViewModel.AllDealers = allDealersList.Select(d => new SelectListItem
             {
                 Text = d.Name,
@@ -171,7 +180,7 @@ namespace WebApplicationDbFirst.Controllers
             ViewBag.BrandId =
                     new SelectList(db.Brands, "BrandId", "Name", motorcycleViewModel.Motorcycle.BrandId);
             return View(motorcycleViewModel);
-          }
+        }
 
 
         // GET: Motorcycles/Delete/5
