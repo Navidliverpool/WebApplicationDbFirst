@@ -9,17 +9,17 @@ using WebApplicationDbFirst.Models;
 using System.Data;
 using System.Data.Entity;
 using WebApplicationDbFirst;
-using WebApplicationDbFirst.ViewModels;
 //using WebApplicationDbFirst.Models.Services;
 using Microsoft.AspNetCore.Http;
 using WebApplicationDbFirst.Models.Services;
 using System.IO;
+using WebApplicationDbFirst.Entities2;
 
 namespace WebApplicationDbFirst.Controllers
 {
     public class HomeController : Controller
     {
-        private NavEcommerceDBfirstEntities db = new NavEcommerceDBfirstEntities();
+        private NavEcommerceDBfirstEntitiesAppropriateForValidation2 db = new NavEcommerceDBfirstEntitiesAppropriateForValidation2();
 
         public async Task<ActionResult> Index()
         {

@@ -8,18 +8,18 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplicationDbFirst;
-using WebApplicationDbFirst.ViewModels;
 using WebApplicationDbFirst.Models;
 //using WebApplicationDbFirst.Models.Services;
 using Microsoft.AspNetCore.Http;
 using WebApplicationDbFirst.Models.Services;
 using System.IO;
+using WebApplicationDbFirst.Entities2;
 
 namespace WebApplicationDbFirst.Controllers
 {
     public class MotorcyclesController : Controller
     {
-        private NavEcommerceDBfirstEntities db = new NavEcommerceDBfirstEntities();
+        private NavEcommerceDBfirstEntitiesAppropriateForValidation2 db = new NavEcommerceDBfirstEntitiesAppropriateForValidation2();
 
         // GET: Motorcycles
         public async Task<ActionResult> Index()
@@ -80,6 +80,8 @@ namespace WebApplicationDbFirst.Controllers
             {
                 Motorcycle = db.Motorcycles.Include(i => i.Dealers).First(i => i.MotorcycleId == id),
             };
+
+         
 
             if (motorcycleViewModel.Motorcycle == null)
                 return HttpNotFound();

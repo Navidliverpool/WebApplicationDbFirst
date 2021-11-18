@@ -7,26 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebApplicationDbFirst
+namespace WebApplicationDbFirst.Entities2
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Motorcycle
+    public partial class Brand
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Motorcycle()
+        public Brand()
         {
+            this.Motorcycles = new HashSet<Motorcycle>();
             this.Dealers = new HashSet<Dealer>();
         }
     
-        public int MotorcycleId { get; set; }
-        public string Model { get; set; }
-        public double Price { get; set; }
-        public Nullable<int> BrandId { get; set; }
-        public byte[] Image { get; set; }
+        public int BrandId { get; set; }
+        public string Name { get; set; }
     
-        public virtual Brand Brand { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Motorcycle> Motorcycles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Dealer> Dealers { get; set; }
     }
