@@ -212,12 +212,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BrandVM.cs" />
-    <Compile Include="Models\DealerModel.cs" />
     <Compile Include="Models\DealerVM.cs" />
     <Compile Include="Models\MotorcycleVM.cs" />
     <Compile Include="Models\Services\ContentRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\MotorcycleDealerViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -320,6 +318,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

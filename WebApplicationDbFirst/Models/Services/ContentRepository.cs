@@ -5,12 +5,13 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web;
+using WebApplicationDbFirst.Entities;
 
 namespace WebApplicationDbFirst.Models.Services
 {
     public class ContentRepository
     {
-        private readonly NavEcommerceDBfirstEntities db = new NavEcommerceDBfirstEntities();
+        private readonly NavEcommerceDBfirstEntitiesValidation db = new NavEcommerceDBfirstEntitiesValidation();
         public void UploadImageInDataBase(HttpPostedFileBase file, MotorcycleVM motorcycleVM)
         {
             motorcycleVM.Motorcycle.Image = ConvertToBytes(file);

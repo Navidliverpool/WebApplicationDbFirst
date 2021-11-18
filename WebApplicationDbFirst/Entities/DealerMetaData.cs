@@ -16,8 +16,11 @@ namespace WebApplicationDbFirst.Entities
         }
 
         public int DealerId { get; set; }
+        
         public string Name { get; set; }
+      
         public string Address { get; set; }
+       
         public int PhoneNumber { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

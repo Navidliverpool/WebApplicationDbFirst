@@ -9,7 +9,6 @@ using WebApplicationDbFirst.Models;
 using System.Data;
 using System.Data.Entity;
 using WebApplicationDbFirst;
-using WebApplicationDbFirst.ViewModels;
 //using WebApplicationDbFirst.Models.Services;
 using Microsoft.AspNetCore.Http;
 using WebApplicationDbFirst.Models.Services;
