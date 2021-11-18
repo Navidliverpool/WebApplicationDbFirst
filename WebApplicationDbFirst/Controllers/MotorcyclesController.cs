@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using WebApplicationDbFirst;
+using WebApplicationDbFirst.Entities;
 using WebApplicationDbFirst.ViewModels;
 using WebApplicationDbFirst.Models;
 //using WebApplicationDbFirst.Models.Services;
@@ -19,7 +19,7 @@ namespace WebApplicationDbFirst.Controllers
 {
     public class MotorcyclesController : Controller
     {
-        private NavEcommerceDBfirstEntities db = new NavEcommerceDBfirstEntities();
+        private NavEcommerceDBfirstEntitiesValidation db = new NavEcommerceDBfirstEntitiesValidation();
 
         // GET: Motorcycles
         public async Task<ActionResult> Index()

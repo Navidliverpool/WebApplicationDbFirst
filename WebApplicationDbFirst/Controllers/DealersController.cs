@@ -9,12 +9,13 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplicationDbFirst;
 using WebApplicationDbFirst.Models;
+using WebApplicationDbFirst.Entities;
 
 namespace WebApplicationDbFirst.Controllers
 {
     public class DealersController : Controller
     {
-        private NavEcommerceDBfirstEntities db = new NavEcommerceDBfirstEntities();
+        private NavEcommerceDBfirstEntitiesValidation db = new NavEcommerceDBfirstEntitiesValidation();
 
         // GET: Dealers
         public async Task<ActionResult> Index()

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebApplicationDbFirst
+namespace WebApplicationDbFirst.Entities
 {
     using System;
     using System.Collections.Generic;

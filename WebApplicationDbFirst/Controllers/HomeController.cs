@@ -14,12 +14,13 @@ using WebApplicationDbFirst.ViewModels;
 using Microsoft.AspNetCore.Http;
 using WebApplicationDbFirst.Models.Services;
 using System.IO;
+using WebApplicationDbFirst.Entities;
 
 namespace WebApplicationDbFirst.Controllers
 {
     public class HomeController : Controller
     {
-        private NavEcommerceDBfirstEntities db = new NavEcommerceDBfirstEntities();
+        private NavEcommerceDBfirstEntitiesValidation db = new NavEcommerceDBfirstEntitiesValidation();
 
         public async Task<ActionResult> Index()
         {
