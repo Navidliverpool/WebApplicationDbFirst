@@ -12,7 +12,7 @@ namespace WebApplicationDbFirst.Controllers
 {
     public class DealersController : Controller
     {
-        private NavEcommerceDBfirstEntitiesValidation db = new NavEcommerceDBfirstEntitiesValidation();
+        private NavEcommerceDBfirstEntities2 db = new NavEcommerceDBfirstEntities2();
 
         // GET: Dealers
         public async Task<ActionResult> Index()

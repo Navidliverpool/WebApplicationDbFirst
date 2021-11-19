@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using WebApplicationDbFirst.Entities;
 using WebApplicationDbFirst.Models;
@@ -12,7 +14,7 @@ namespace WebApplicationDbFirst.Controllers
 {
     public class BrandsController : Controller
     {
-        private NavEcommerceDBfirstEntitiesValidation db = new NavEcommerceDBfirstEntitiesValidation();
+        private NavEcommerceDBfirstEntities2 db = new NavEcommerceDBfirstEntities2();
 
         // GET: Brands
         public async Task<ActionResult> Index()
@@ -72,11 +74,11 @@ namespace WebApplicationDbFirst.Controllers
 
             };
 
-            var imageData = db.Brands.Where(m => m.Image == motorcycleViewModel.Motorcycle.Image).FirstOrDefault();
+            var imageData = db.Brands.Where(m => m.Image == brandViewModel.Brand.Image).FirstOrDefault();
 
             if (imageData != null)
             {
-                motorcycleViewModel.Motorcycle.Image = imageData.Image;
+                brandViewModel.Brand.Image = imageData.Image;
             }
 
 
@@ -102,7 +104,7 @@ namespace WebApplicationDbFirst.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(BrandVM brandViewModel)
+        public ActionResult Edit(BrandVM brandViewModel, HttpPostedFileBase image)
         {
 
             if (brandViewModel == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -144,6 +146,23 @@ namespace WebApplicationDbFirst.Controllers
                         }
                     }
 
+                    if (image != null)
+                    {
+                        byte[] data;
+                        using (Stream inputStream = image.InputStream)
+                        {
+                            MemoryStream memoryStream = inputStream as MemoryStream;
+                            if (memoryStream == null)
+                            {
+                                memoryStream = new MemoryStream();
+                                inputStream.CopyTo(memoryStream);
+                            }
+                            data = memoryStream.ToArray();
+                        }
+
+                        brandToUpdate.Image = data;
+                    }
+
                     db.Entry(brandToUpdate).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                 }
@@ -152,22 +171,6 @@ namespace WebApplicationDbFirst.Controllers
             }
             return View(brandViewModel);
         }
-
-        //// POST: Brands/Edit/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Edit([Bind(Include = "BrandId,Name")] Brand brand)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(brand).State = EntityState.Modified;
-        //        await db.SaveChangesAsync();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(brand);
-        //}
 
         // GET: Brands/Delete/5
         public async Task<ActionResult> Delete(int? id)
