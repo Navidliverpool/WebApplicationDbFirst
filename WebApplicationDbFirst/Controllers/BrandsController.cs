@@ -72,6 +72,14 @@ namespace WebApplicationDbFirst.Controllers
 
             };
 
+            var imageData = db.Brands.Where(m => m.Image == motorcycleViewModel.Motorcycle.Image).FirstOrDefault();
+
+            if (imageData != null)
+            {
+                motorcycleViewModel.Motorcycle.Image = imageData.Image;
+            }
+
+
             if (brandViewModel.Brand == null)
                 return HttpNotFound();
 

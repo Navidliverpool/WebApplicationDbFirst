@@ -17,6 +17,19 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Brand.BrandId)
 
+    <span>
+        <label>Upload Image</label>
+        <br />
+        <input type="file" name="image" id="image" />
+    </span>
+
+    @if (Model.Brand.Image != null)
+    {
+        <label for="Image">Image </label>
+        <br />
+        <img src="data:image;base64,@System.Convert.ToBase64String(Model.Brand.Image)" width="80" height="80" />
+    }
+
     <div class="form-group">
         @Html.LabelFor(model => model.Brand.Name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -41,7 +54,7 @@
             </div>
         </div>
     </div>
- </div>
+</div>
 }
 
     <div>

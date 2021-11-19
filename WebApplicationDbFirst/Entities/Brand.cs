@@ -23,6 +23,7 @@ namespace WebApplicationDbFirst.Entities
     
         public int BrandId { get; set; }
         public string Name { get; set; }
+        public byte[] Image { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Motorcycle> Motorcycles { get; set; }

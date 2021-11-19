@@ -19,6 +19,7 @@
           </Key>
           <Property Name="BrandId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Image" Type="image" />
         </EntityType>
         <EntityType Name="DealerMotorcycle">
           <Key>
@@ -164,6 +165,7 @@
           </Key>
           <Property Name="BrandId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Motorcycles" Relationship="Self.FK_Motorcycles_Brands_BrandId" FromRole="Brands" ToRole="Motorcycles" />
           <NavigationProperty Name="Dealers" Relationship="Self.BrandDealer" FromRole="Brands" ToRole="Dealers" />
         </EntityType>
@@ -220,7 +222,7 @@
           <End Role="Dealers" Type="Self.Dealer" Multiplicity="*" />
           <End Role="Motorcycles" Type="Self.Motorcycle" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="NavEcommerceDBfirstEntitiesValidation" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="NavEcommerceDBfirstEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Brands" EntityType="Self.Brand" />
           <EntitySet Name="Dealers" EntityType="Self.Dealer" />
           <EntitySet Name="Motorcycles" EntityType="Self.Motorcycle" />
@@ -243,12 +245,13 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="NavEcommerceDBfirstModelStoreContainer" CdmEntityContainer="NavEcommerceDBfirstEntitiesValidation">
+        <EntityContainerMapping StorageEntityContainer="NavEcommerceDBfirstModelStoreContainer" CdmEntityContainer="NavEcommerceDBfirstEntities2">
           <EntitySetMapping Name="Brands">
             <EntityTypeMapping TypeName="NavEcommerceDBfirstModel.Brand">
               <MappingFragment StoreEntitySet="Brands">
                 <ScalarProperty Name="BrandId" ColumnName="BrandId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

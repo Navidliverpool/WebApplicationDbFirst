@@ -182,34 +182,34 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MotorcyclesController.cs" />
     <Compile Include="Entities\Brand.cs">
-      <DependentUpon>ModelValidation.tt</DependentUpon>
+      <DependentUpon>ModelsDBfirst.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\BrandMetaData.cs" />
     <Compile Include="Entities\Dealer.cs">
-      <DependentUpon>ModelValidation.tt</DependentUpon>
+      <DependentUpon>ModelsDBfirst.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\DealerMetaData.cs" />
-    <Compile Include="Entities\ModelValidation.Context.cs">
+    <Compile Include="Entities\ModelsDBfirst.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelValidation.Context.tt</DependentUpon>
+      <DependentUpon>ModelsDBfirst.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\ModelValidation.cs">
+    <Compile Include="Entities\ModelsDBfirst.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelValidation.tt</DependentUpon>
+      <DependentUpon>ModelsDBfirst.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\ModelValidation.Designer.cs">
+    <Compile Include="Entities\ModelsDBfirst.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelValidation.edmx</DependentUpon>
+      <DependentUpon>ModelsDBfirst.edmx</DependentUpon>
     </Compile>
     <Compile Include="Entities\Motorcycle.cs">
-      <DependentUpon>ModelValidation.tt</DependentUpon>
+      <DependentUpon>ModelsDBfirst.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\MotorcycleMetaData.cs" />
     <Compile Include="Entities\sysdiagram.cs">
-      <DependentUpon>ModelValidation.tt</DependentUpon>
+      <DependentUpon>ModelsDBfirst.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -232,15 +232,15 @@
     <Content Include="Content\images\walle.jpg" />
     <Content Include="Content\nivo-slider.css" />
     <Content Include="Content\style.css" />
-    <Content Include="Entities\ModelValidation.Context.tt">
+    <Content Include="Entities\ModelsDBfirst.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelValidation.edmx</DependentUpon>
-      <LastGenOutput>ModelValidation.Context.cs</LastGenOutput>
+      <DependentUpon>ModelsDBfirst.edmx</DependentUpon>
+      <LastGenOutput>ModelsDBfirst.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Entities\ModelValidation.tt">
+    <Content Include="Entities\ModelsDBfirst.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelValidation.edmx</DependentUpon>
-      <LastGenOutput>ModelValidation.cs</LastGenOutput>
+      <DependentUpon>ModelsDBfirst.edmx</DependentUpon>
+      <LastGenOutput>ModelsDBfirst.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -250,12 +250,12 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\images\.DS_Store" />
     <Content Include="libman.json" />
-    <EntityDeploy Include="Entities\ModelValidation.edmx">
+    <EntityDeploy Include="Entities\ModelsDBfirst.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelValidation.Designer.cs</LastGenOutput>
+      <LastGenOutput>ModelsDBfirst.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Entities\ModelValidation.edmx.diagram">
-      <DependentUpon>ModelValidation.edmx</DependentUpon>
+    <Content Include="Entities\ModelsDBfirst.edmx.diagram">
+      <DependentUpon>ModelsDBfirst.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />

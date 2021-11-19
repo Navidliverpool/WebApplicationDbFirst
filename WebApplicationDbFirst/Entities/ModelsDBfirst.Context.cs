@@ -13,10 +13,10 @@ namespace WebApplicationDbFirst.Entities
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class NavEcommerceDBfirstEntitiesValidation : DbContext
+    public partial class NavEcommerceDBfirstEntities2 : DbContext
     {
-        public NavEcommerceDBfirstEntitiesValidation()
-            : base("name=NavEcommerceDBfirstEntitiesValidation")
+        public NavEcommerceDBfirstEntities2()
+            : base("name=NavEcommerceDBfirstEntities2")
         {
         }
     
