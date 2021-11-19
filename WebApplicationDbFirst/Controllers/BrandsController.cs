@@ -74,14 +74,6 @@ namespace WebApplicationDbFirst.Controllers
 
             };
 
-            var imageData = db.Brands.Where(m => m.Image == brandViewModel.Brand.Image).FirstOrDefault();
-
-            if (imageData != null)
-            {
-                brandViewModel.Brand.Image = imageData.Image;
-            }
-
-
             if (brandViewModel.Brand == null)
                 return HttpNotFound();
 
@@ -99,6 +91,13 @@ namespace WebApplicationDbFirst.Controllers
                 Value = m.MotorcycleId.ToString()
             });
 
+            var imageData = db.Brands.Where(m => m.Image == brandViewModel.Brand.Image).FirstOrDefault();
+
+            if (imageData != null)
+            {
+                brandViewModel.Brand.Image = imageData.Image;
+            }
+
             return View(brandViewModel);
         }
 
@@ -114,7 +113,7 @@ namespace WebApplicationDbFirst.Controllers
                 var brandToUpdate = db.Brands
                     .Include(i => i.Dealers).Include(i => i.Motorcycles).First(i => i.BrandId == brandViewModel.Brand.BrandId);
 
-                if (TryUpdateModel(brandToUpdate, "Brand", new string[] { "Name", "BrandId" }))
+                if (TryUpdateModel(brandToUpdate, "Brand", new string[] { "Name", "Image", "BrandId", "Dealers", "Motorcycles" }))
                 {
                     var newDealer = db.Dealers.Where(
                        m => brandViewModel.SelectedDealers.Contains(m.DealerId)).ToList();
@@ -166,9 +165,21 @@ namespace WebApplicationDbFirst.Controllers
                     db.Entry(brandToUpdate).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                 }
-
-                return RedirectToAction("Index");
             }
+
+            var allDealersList = db.Dealers.ToList();
+            brandViewModel.AllDealers = allDealersList.Select(d => new SelectListItem
+            {
+                Text = d.Name,
+                Value = d.DealerId.ToString()
+            });
+
+            var allMotorcyclesList = db.Motorcycles.ToList();
+            brandViewModel.AllMotorcycles = allMotorcyclesList.Select(d => new SelectListItem
+            {
+                Text = d.Model,
+                Value = d.MotorcycleId.ToString()
+            });
             return View(brandViewModel);
         }
 

@@ -12,7 +12,9 @@ namespace WebApplicationDbFirst.Entities
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+    using System.Data.Entity.Validation;
+    using WebApplicationDbFirst.CustomExceptions;
+
     public partial class NavEcommerceDBfirstEntities2 : DbContext
     {
         public NavEcommerceDBfirstEntities2()
@@ -29,5 +31,18 @@ namespace WebApplicationDbFirst.Entities
         public virtual DbSet<Dealer> Dealers { get; set; }
         public virtual DbSet<Motorcycle> Motorcycles { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+
+        public override int SaveChanges()
+        {
+            try
+            {
+                return base.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                var newException = new FormattedDbEntityValidationException(e);
+                throw newException;
+            }
+        }
     }
 }

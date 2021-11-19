@@ -181,6 +181,7 @@
     <Compile Include="Controllers\DealersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MotorcyclesController.cs" />
+    <Compile Include="CustomExceptions\FormattedDbEntityValidationException.cs" />
     <Compile Include="Entities\Brand.cs">
       <DependentUpon>ModelsDBfirst.tt</DependentUpon>
     </Compile>
