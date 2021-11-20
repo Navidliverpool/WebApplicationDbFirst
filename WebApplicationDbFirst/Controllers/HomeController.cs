@@ -1,8 +1,10 @@
 ﻿using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 //using WebApplicationDbFirst.Models.Services;
 using WebApplicationDbFirst.Entities;
+using WebApplicationDbFirst.ViewModels;
 
 namespace WebApplicationDbFirst.Controllers
 {
@@ -12,8 +14,25 @@ namespace WebApplicationDbFirst.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var motorcycles = db.Motorcycles.Include(m => m.Brand);
-            return View(await motorcycles.ToListAsync());
+            var homeVM = new HomeVM
+            {
+                MotorcyclesHomeVM = db.Motorcycles.FirstOrDefault(),
+                BrandsHomeVM = db.Brands.FirstOrDefault()
+            };
+
+            var motorcycleImageData = db.Motorcycles.Where(m => m.Image == homeVM.MotorcyclesHomeVM.Image).FirstOrDefault();
+            if (motorcycleImageData != null)
+            {
+                homeVM.MotorcyclesHomeVM.Image = motorcycleImageData.Image;
+            }
+
+            var brandImageData = db.Motorcycles.Where(m => m.Image == homeVM.BrandsHomeVM.Image).FirstOrDefault();
+            if (brandImageData != null)
+            {
+                homeVM.MotorcyclesHomeVM.Image = motorcycleImageData.Image;
+            }
+
+            return View(homeVM);
         }
 
         public ActionResult About()
