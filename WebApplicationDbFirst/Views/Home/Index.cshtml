@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApplicationDbFirst.Motorcycle>
+﻿@model WebApplicationDbFirst.Models.HomeVM
 
 @{
     ViewBag.Title = "Index";
@@ -6,28 +6,22 @@
 
 <h2>Index</h2>
 
-<html>
-<head>
-    <link rel="stylesheet" href="~/themes/default/default.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="~/Content/nivo-slider.css" type="text/css" media="screen" />
 
-</head>
-<body>
-    @*<div id="slider" class="nivoSlider">
-        <img src="~/Content/images/toystory.jpg" data-thumb="images/toystory.jpg" alt="" />
-        <img src="~/Content/images/up.jpg" data-thumb="images/up.jpg" alt="" title="This is an example of a caption" />
-        <img src="~/Content/images/dev7logo.png" data-thumb="images/walle.jpg" alt="" data-transition="slideInLeft" />
-        <img src="~/Content/images/walle.jpg" data-thumb="images/nemo.jpg" alt="" title="#htmlcaption" />*@
-    </div>
-    @foreach (var item in Model)
+<link rel="stylesheet" href="~/themes/default/default.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="~/Content/nivo-slider.css" type="text/css" media="screen" />
+
+
+<div id="slider" class="nivoSlider">
+    @foreach (var item in Model.Motorcycles)
     {
-        <div id="slider" class="nivoSlider">
-            @if (item.Image != null)
-            {
-                <img src="data:image;base64,@System.Convert.ToBase64String(item.Image)" width="180" height="180" />
-            }
-        </div>
+        if (item.Image != null)
+        {
+            <img src="data:image;base64,@System.Convert.ToBase64String(item.Image)" width="180" height="180" />
+        }
     }
+</div>
+
+
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery.nivo.slider.js"></script>
 
@@ -63,5 +57,3 @@
             });
         });
     </script>
-</body>
-</html>

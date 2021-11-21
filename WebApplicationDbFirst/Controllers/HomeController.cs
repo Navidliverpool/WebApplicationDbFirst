@@ -23,8 +23,14 @@ namespace WebApplicationDbFirst.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var motorcycles = db.Motorcycles.Include(m => m.Brand);
-            return View(await motorcycles.ToListAsync());
+            var motorcycles = db.Motorcycles;
+            var brand = db.Brands;
+            var homeVM = new HomeVM
+            {
+                Motorcycles = motorcycles.ToList(),
+                Brands = brand.ToList()
+            };
+            return View(homeVM);
         }
 
         public ActionResult About()

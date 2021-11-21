@@ -205,6 +205,7 @@
     <Compile Include="Models\BrandVM.cs" />
     <Compile Include="Models\DealerModel.cs" />
     <Compile Include="Models\DealerVM.cs" />
+    <Compile Include="Models\HomeVM.cs" />
     <Compile Include="Models\MotorcycleVM.cs" />
     <Compile Include="Models\Services\ContentRepository.cs" />
     <Compile Include="Models\Services\UploadImageToDb.cs" />
