@@ -14,23 +14,13 @@ namespace WebApplicationDbFirst.Controllers
 
         public async Task<ActionResult> Index()
         {
+            var motorcycle = db.Motorcycles;
+            var brand = db.Brands;
             var homeVM = new HomeVM
             {
-                MotorcyclesHomeVM = db.Motorcycles.FirstOrDefault(),
-                BrandsHomeVM = db.Brands.FirstOrDefault()
+                MotorcyclesHomeVM = motorcycle.ToList(),
+                BrandsHomeVM = brand.ToList()
             };
-
-            var motorcycleImageData = db.Motorcycles.Where(m => m.Image == homeVM.MotorcyclesHomeVM.Image).FirstOrDefault();
-            if (motorcycleImageData != null)
-            {
-                homeVM.MotorcyclesHomeVM.Image = motorcycleImageData.Image;
-            }
-
-            var brandImageData = db.Motorcycles.Where(m => m.Image == homeVM.BrandsHomeVM.Image).FirstOrDefault();
-            if (brandImageData != null)
-            {
-                homeVM.MotorcyclesHomeVM.Image = motorcycleImageData.Image;
-            }
 
             return View(homeVM);
         }

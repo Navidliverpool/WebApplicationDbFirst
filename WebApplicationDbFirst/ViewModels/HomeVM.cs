@@ -8,7 +8,7 @@ namespace WebApplicationDbFirst.ViewModels
 {
     public class HomeVM
     {
-        public Motorcycle MotorcyclesHomeVM { get; set; }
-        public Brand BrandsHomeVM { get; set; }
+        public IEnumerable<Motorcycle> MotorcyclesHomeVM { get; set; }
+        public IEnumerable<Brand> BrandsHomeVM { get; set; }
     }
 }
