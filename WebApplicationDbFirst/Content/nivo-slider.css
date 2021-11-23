@@ -9,17 +9,30 @@
  
 /* The Nivo Slider styles */
 .nivoSlider {
-	position:relative;
-	width:100%;
-	height:auto;
-	overflow: hidden;
+	position: absolute;
+	width: auto;
+	height: auto;
+	margin-top: 50px;
+	margin-right: 400px;
 }
-.nivoSlider img {
-	position:absolute;
-	top:0px;
-	left:0px;
-	max-width: none;
+	.nivoSlider img {
+		position: absolute;
+		max-width: none;
+	}
+
+.nivoSlider2 {
+	position: absolute;
+	width: auto;
+	height: auto;
+	margin-top: 0px;
+	margin-left: 800px;
 }
+
+	.nivoSlider2 img {
+		position: absolute;
+		max-width: none;
+	}
+
 .nivo-main-image {
 	display: block !important;
 	position: relative !important; 
