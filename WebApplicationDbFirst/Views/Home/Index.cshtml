@@ -4,28 +4,35 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
-
-<div id="slider" class="nivoSlider">
-    @foreach (var item in Model.MotorcyclesHomeVM)
-    {
-        if (item.Image != null)
-        {
-            <img src="data:image;base64,@System.Convert.ToBase64String(item.Image)" style="width:720px;height:180px" />
-        }
-    }
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <div id="slider" class="nivoSlider">
+                @foreach (var item in Model.MotorcyclesHomeVM)
+                {
+                    if (item.Image != null)
+                    {
+                        <img src="data:image;base64,@System.Convert.ToBase64String(item.Image)" style="width:720px;height:180px" />
+                    }
+                }
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div id="slider2" class="nivoSlider2">
+                @foreach (var item in Model.BrandsHomeVM)
+                {
+                    if (item.Image != null)
+                    {
+                        <img src="data:image;base64,@System.Convert.ToBase64String(item.Image)" style="width:720px;height:180px" />
+                    }
+                }
+            </div>
+        </div>
+    </div>
 </div>
 
-<div id="slider2" class="nivoSlider2">
-    @foreach (var item in Model.BrandsHomeVM)
-    {
-        if (item.Image != null)
-        {
-            <img src="data:image;base64,@System.Convert.ToBase64String(item.Image)" style="width:720px;height:180px" />
-        }
-    }
-</div>
+
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="~/Scripts/jquery.nivo.slider.js"></script>
@@ -34,9 +41,7 @@
     $(window).load(function () {
         $('#slider').nivoSlider();
     });
-</script>
 
-<script type="text/javascript">
     $(window).load(function () {
         $('#slider').nivoSlider({
             effect: 'random',
@@ -61,15 +66,11 @@
             afterLoad: function () { }
         });
     });
-</script>
 
-<script type="text/javascript">
     $(window).load(function () {
         $('#slider2').nivoSlider();
     });
-</script>
 
-<script type="text/javascript">
     $(window).load(function () {
         $('#slider2').nivoSlider({
             effect: 'random',
