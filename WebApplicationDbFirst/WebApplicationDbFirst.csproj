@@ -227,11 +227,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\images\dev7logo.png" />
-    <Content Include="Content\images\nemo.jpg" />
-    <Content Include="Content\images\toystory.jpg" />
-    <Content Include="Content\images\up.jpg" />
-    <Content Include="Content\images\walle.jpg" />
+    <Content Include="Content\myCss.css" />
     <Content Include="Content\nivo-slider.css" />
     <Content Include="Content\style.css" />
     <Content Include="Entities\ModelsDBfirst.Context.tt">
@@ -250,7 +246,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Content\images\.DS_Store" />
     <Content Include="libman.json" />
     <EntityDeploy Include="Entities\ModelsDBfirst.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -323,6 +318,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

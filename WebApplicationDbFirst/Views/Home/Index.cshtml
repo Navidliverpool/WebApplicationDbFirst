@@ -3,19 +3,24 @@
 @{
     ViewBag.Title = "Index";
 }
+<p>
+    <a href="http://localhost:58926/Motorcycles">
+        <img src="~/Content/images/shutterstock_655905334-Cropped.jpg" alt="Motorcycles"/>
+    </a>
 
+</p>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-sm-6">
             <div id="slider" class="nivoSlider">
-                @foreach (var item in Model.MotorcyclesHomeVM)
-                {
+                 @foreach (var item in Model.MotorcyclesHomeVM)
+                 {
                     if (item.Image != null)
-                    {
-                        <img src="data:image;base64,@System.Convert.ToBase64String(item.Image)" />
+                    {                 
+                         <img src="data:image;base64,@System.Convert.ToBase64String(item.Image)" />
                     }
-                }
+                 }
             </div>
         </div>
         <div class="col-sm-6">

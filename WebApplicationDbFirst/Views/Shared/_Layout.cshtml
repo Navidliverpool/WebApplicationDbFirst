@@ -15,39 +15,43 @@
             $(":checkbox").wrap("<span style ='background-color: red'>");
         });
     </script>
+
     <link rel="stylesheet" href="~/themes/default/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="~/Content/nivo-slider.css" type="text/css" media="screen" />
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Home Page", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Motorcycles", "Index", "Motorcycles")</li>
-                    <li>@Html.ActionLink("Brands", "Index", "Brands")</li>
-                    <li>@Html.ActionLink("Dealers", "Index", "Dealers")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Home Page", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Motorcycles", "Index", "Motorcycles")</li>
+                        <li>@Html.ActionLink("Brands", "Index", "Brands")</li>
+                        <li>@Html.ActionLink("Dealers", "Index", "Dealers")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
-
-    @RenderSection("scripts", required: false)
+        <div class="container body-content">
+            <link rel="stylesheet" href="~/Content/myCss.css" type="text/css" media="screen" />
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
+        @RenderSection("scripts", required: false)
+   
 </body>
+    
+
 </html>
