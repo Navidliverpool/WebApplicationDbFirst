@@ -16,7 +16,7 @@ namespace WebApplicationDbFirst.Controllers
 {
     public class MotorcyclesController : Controller
     {
-        private NavEcommerceDBfirstEntities2 db = new NavEcommerceDBfirstEntities2();
+        private NavEcommerceDBfirstEntities3 db = new NavEcommerceDBfirstEntities3();
 
         // GET: Motorcycles
         public async Task<ActionResult> Index()

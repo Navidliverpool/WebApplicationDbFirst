@@ -12,13 +12,11 @@ namespace WebApplicationDbFirst.Entities
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Validation;
-    using WebApplicationDbFirst.CustomExceptions;
-
-    public partial class NavEcommerceDBfirstEntities2 : DbContext
+    
+    public partial class NavEcommerceDBfirstEntities3 : DbContext
     {
-        public NavEcommerceDBfirstEntities2()
-            : base("name=NavEcommerceDBfirstEntities2")
+        public NavEcommerceDBfirstEntities3()
+            : base("name=NavEcommerceDBfirstEntities3")
         {
         }
     
@@ -27,22 +25,13 @@ namespace WebApplicationDbFirst.Entities
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<Dealer> Dealers { get; set; }
         public virtual DbSet<Motorcycle> Motorcycles { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-
-        public override int SaveChanges()
-        {
-            try
-            {
-                return base.SaveChanges();
-            }
-            catch (DbEntityValidationException e)
-            {
-                var newException = new FormattedDbEntityValidationException(e);
-                throw newException;
-            }
-        }
     }
 }

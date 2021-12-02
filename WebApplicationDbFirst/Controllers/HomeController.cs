@@ -10,7 +10,7 @@ namespace WebApplicationDbFirst.Controllers
 {
     public class HomeController : Controller
     {
-        private NavEcommerceDBfirstEntities2 db = new NavEcommerceDBfirstEntities2();
+        private NavEcommerceDBfirstEntities3 db = new NavEcommerceDBfirstEntities3();
 
         public async Task<ActionResult> Index()
         {

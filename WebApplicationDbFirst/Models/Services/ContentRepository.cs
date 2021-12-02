@@ -6,7 +6,7 @@ namespace WebApplicationDbFirst.Models.Services
 {
     public class ContentRepository
     {
-        private readonly NavEcommerceDBfirstEntities2 db = new NavEcommerceDBfirstEntities2();
+        private readonly NavEcommerceDBfirstEntities3 db = new NavEcommerceDBfirstEntities3();
         public void UploadImageInDataBase(HttpPostedFileBase file, MotorcycleVM motorcycleVM)
         {
             motorcycleVM.Motorcycle.Image = ConvertToBytes(file);

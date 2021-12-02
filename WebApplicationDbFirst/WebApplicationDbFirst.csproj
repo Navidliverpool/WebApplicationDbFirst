@@ -182,6 +182,18 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MotorcyclesController.cs" />
     <Compile Include="CustomExceptions\FormattedDbEntityValidationException.cs" />
+    <Compile Include="Entities\AspNetRole.cs">
+      <DependentUpon>ModelsDBfirst.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\AspNetUser.cs">
+      <DependentUpon>ModelsDBfirst.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\AspNetUserClaim.cs">
+      <DependentUpon>ModelsDBfirst.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\AspNetUserLogin.cs">
+      <DependentUpon>ModelsDBfirst.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Brand.cs">
       <DependentUpon>ModelsDBfirst.tt</DependentUpon>
     </Compile>
